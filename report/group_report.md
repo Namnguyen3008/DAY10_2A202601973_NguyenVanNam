@@ -13,11 +13,11 @@
 
 | STT | Họ và tên | MSSV | Vai trò chính | Module/deliverable sở hữu |
 | --: | --- | --- | --- | --- |
-| 1 | Nguyễn Đàm Kiên | 2A202602015 | Ingestion | [`src/ingestion/crossref.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/ingestion/crossref.py) |
-| 2 | Lê Nguyễn Phước Thành | 2A202601032 | Cleaning | [`src/ingestion/cleaning.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/ingestion/cleaning.py), [`src/ingestion/corruption.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/ingestion/corruption.py) |
-| 3 | Nguyễn Văn Nam | 2A202601973 | Vector Indexing | [`src/retrieval/index.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/retrieval/index.py), [`src/pipelines/`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/pipelines/) |
-| 4 | Lê Kim Tính | 2A202601560 | Evaluation | [`src/evaluation/testset.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/evaluation/testset.py), [`src/evaluation/metrics.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/evaluation/metrics.py) |
-| 5 | Trần Chí Hiển | 2A202601162 | Observability | [`src/observability/quality.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/observability/quality.py), [`src/observability/reporting.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/observability/reporting.py) |
+| 1 | Nguyễn Đàm Kiên | 2A202602015 | Ingestion | `src/ingestion/crossref.py` |
+| 2 | Lê Nguyễn Phước Thành | 2A202601032 | Cleaning | `src/ingestion/cleaning.py`, `src/ingestion/corruption.py` |
+| 3 | Nguyễn Văn Nam | 2A202601973 | Vector Indexing | `src/retrieval/index.py`, `src/pipelines/` |
+| 4 | Lê Kim Tính | 2A202601560 | Evaluation | `src/evaluation/testset.py`, `src/evaluation/metrics.py` |
+| 5 | Trần Chí Hiển | 2A202601162 | Observability | `src/observability/quality.py`, `src/observability/reporting.py` |
 
 ## 2. Tóm tắt kết quả
 
