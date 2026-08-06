@@ -10,6 +10,7 @@ from core.utils import write_json
 
 
 def build_test_set(df: pd.DataFrame, output_path: Path) -> list[dict[str, Any]]:
+    """Generates an evaluation test set of 32 structured questions from a DataFrame of paper records."""
     if df.empty:
         raise ValueError("Cannot build test set from an empty DataFrame.")
 
