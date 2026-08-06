@@ -11,6 +11,7 @@ from ingestion.crossref import PaperRecord
 
 
 def build_clean_dataframe(records: list[PaperRecord], run_date: datetime) -> pd.DataFrame:
+    """Cleans, normalizes, and models raw academic paper records into a structured DataFrame."""
     rows: list[dict] = []
     
     for record in records:
