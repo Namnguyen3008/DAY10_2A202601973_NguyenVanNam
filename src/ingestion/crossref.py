@@ -15,6 +15,7 @@ from core.utils import ensure_parent, normalize_whitespace, read_json, write_jso
 
 @dataclass(frozen=True)
 class PaperRecord:
+    """Represents a structured academic paper record extracted from the Crossref API."""
     paper_id: str
     title: str
     summary: str
