@@ -11,6 +11,7 @@ from core.utils import write_json
 
 
 def run_data_quality_checks(df: pd.DataFrame, settings: Settings, report_name: str) -> dict[str, Any]:
+    """Performs Great Expectations-style quality checks on a DataFrame and exports a JSON report."""
     total_rows = len(df)
     
     if total_rows == 0:
