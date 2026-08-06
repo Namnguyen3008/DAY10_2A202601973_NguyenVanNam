@@ -22,6 +22,7 @@ class SearchResult:
 
 
 class LocalEmbeddingIndex:
+    """Manages the indexing and semantic searching of document collections using ChromaDB."""
     def __init__(
         self,
         settings: Settings,
