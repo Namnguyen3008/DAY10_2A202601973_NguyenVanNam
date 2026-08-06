@@ -45,6 +45,8 @@ class Settings:
     llm_provider: str
     model_name: str
     google_api_key: str | None
+    google_api_keys: list[str]
+    llm_models: list[str]
     openai_api_key: str | None
     anthropic_api_key: str | None
     openrouter_api_key: str | None
@@ -53,6 +55,7 @@ class Settings:
     custom_llm_api_key: str | None
     custom_llm_base_url: str | None
     embedding_model: str
+    mistral_api_keys: list[str]
     baseline_collection_name: str
     corrupted_collection_name: str
     repaired_collection_name: str
@@ -110,8 +113,14 @@ def load_settings(project_dir: Path | None = None) -> Settings:
 
     return Settings(
         llm_provider=os.getenv("LLM_PROVIDER", "gemini"),
-        model_name=os.getenv("LLM_MODEL", "gemini-2.5-flash"),
+        model_name=os.getenv("LLM_MODEL", "gemini-3.1-flash-lite"),
         google_api_key=os.getenv("GOOGLE_API_KEY"),
+        google_api_keys=[
+            k.strip() for k in os.getenv("GOOGLE_API_KEYS", "").split(",") if k.strip()
+        ] or ([os.getenv("GOOGLE_API_KEY")] if os.getenv("GOOGLE_API_KEY") else []),
+        llm_models=[
+            m.strip() for m in os.getenv("LLM_MODELS", "").split(",") if m.strip()
+        ] or ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite"],
         openai_api_key=os.getenv("OPENAI_API_KEY"),
         anthropic_api_key=os.getenv("ANTHROPIC_API_KEY"),
         openrouter_api_key=os.getenv("OPENROUTER_API_KEY"),
@@ -119,7 +128,10 @@ def load_settings(project_dir: Path | None = None) -> Settings:
         ollama_base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
         custom_llm_api_key=os.getenv("CUSTOM_LLM_API_KEY"),
         custom_llm_base_url=os.getenv("CUSTOM_LLM_BASE_URL"),
-        embedding_model="sentence-transformers/all-MiniLM-L6-v2",
+        embedding_model=os.getenv("EMBEDDING_MODEL", "mistral-embed"),
+        mistral_api_keys=[
+            k.strip() for k in os.getenv("MISTRAL_API_KEYS", "").split(",") if k.strip()
+        ],
         baseline_collection_name="papers-baseline",
         corrupted_collection_name="papers-corrupted",
         repaired_collection_name="papers-repaired",
@@ -147,9 +159,9 @@ def normalized_provider(settings: Settings) -> str:
 def require_llm_credentials(settings: Settings) -> None:
     provider = normalized_provider(settings)
     if provider == "gemini":
-        if settings.google_api_key:
+        if settings.google_api_key or settings.google_api_keys:
             return
-        raise RuntimeError("GOOGLE_API_KEY is required when LLM_PROVIDER=gemini.")
+        raise RuntimeError("GOOGLE_API_KEY or GOOGLE_API_KEYS is required when LLM_PROVIDER=gemini.")
     if provider == "openai":
         if settings.openai_api_key:
             return
