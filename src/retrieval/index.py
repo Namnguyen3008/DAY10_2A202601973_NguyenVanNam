@@ -9,7 +9,7 @@ import pandas as pd
 
 from core.config import Settings
 from core.utils import read_json, safe_slug, write_json
-from retrieval.embeddings import MiniLMEmbeddings
+from retrieval.embeddings import MiniLMEmbeddings, get_embeddings
 
 
 @dataclass(frozen=True)
@@ -34,7 +34,7 @@ class LocalEmbeddingIndex:
         self.documents = documents
         self.persist_path = persist_path
         self.embedding_backend = "chroma"
-        self.embedding_model = MiniLMEmbeddings(settings.embedding_model)
+        self.embedding_model = get_embeddings(settings)
         self.client = chromadb.PersistentClient(path=str(persist_path))
         self.collection = self.client.get_collection(name=collection_name)
         self.documents_by_paper_id = {document["paper_id"].lower(): document for document in documents}
@@ -92,7 +92,7 @@ class LocalEmbeddingIndex:
         persist_path = settings.paths.chroma_dir
         persist_path.mkdir(parents=True, exist_ok=True)
 
-        embedding_model = MiniLMEmbeddings(settings.embedding_model)
+        embedding_model = get_embeddings(settings)
         client = chromadb.PersistentClient(path=str(persist_path))
         try:
             client.delete_collection(name=collection_name)
@@ -140,7 +140,10 @@ class LocalEmbeddingIndex:
 
     def search(self, query: str, top_k: int | None = None) -> list[SearchResult]:
         query_embedding = self.embedding_model.embed_query(query)
-        results = self.collection.query(
+        client = chromadb.PersistentClient(path=str(self.persist_path))
+        collection = client.get_collection(name=self.collection_name)
+
+        results = collection.query(
             query_embeddings=[query_embedding],
             n_results=top_k or self.settings.top_k,
             include=["documents", "metadatas", "distances"],
