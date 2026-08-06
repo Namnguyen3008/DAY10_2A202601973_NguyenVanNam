@@ -1,5 +1,17 @@
 # Day 10 - Data Pipeline & Data Observability
 
+## Bảng phân công công việc nhóm (5 Thành viên)
+
+| STT | Thành viên | MSSV | Phân công nhiệm vụ chính | Mô-đun phụ trách trong mã nguồn |
+| :---: | :--- | :---: | :--- | :--- |
+| **1** | **Nguyễn Đàm Kiên** | `2A202602015` | **Data Ingestion & Raw Extraction** | [`src/ingestion/crossref.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/ingestion/crossref.py) |
+| **2** | **Lê Nguyễn Phước Thành** | `2A202601032` | **Data Cleaning & Preprocessing** | [`src/ingestion/cleaning.py`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/ingestion/cleaning.py) |
+| **3** | **Nguyễn Văn Nam** | `2A202601973` | **Vector Indexing & RAG Pipeline Orchestration** | [`src/retrieval/`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/retrieval/), [`src/pipelines/`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/pipelines/) |
+| **4** | **Lê Kim Tính** | `2A202601560` | **Evaluation Set & LLM Judge Scoring** | [`src/evaluation/`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/evaluation/) |
+| **5** | **Trần Chí Hiển** | `2A202601162` | **Data Observability, Quality & Reporting** | [`src/observability/`](file:///c:/Users/Namdr/Downloads/DAY%2010/src/observability/) |
+
+---
+
 ## Mục tiêu bài lab
 
 Bài lab mô phỏng quy trình xây dựng và vận hành data pipeline cho một hệ thống RAG sử dụng dữ liệu bài báo học thuật từ Crossref.
