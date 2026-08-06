@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
-from statistics import mean
 import os
+from statistics import mean
 import sys
 import types
 from typing import Any
@@ -12,7 +13,7 @@ from pydantic import BaseModel, Field
 
 from core.config import Settings
 from core.utils import normalize_whitespace, read_json, write_json
-from retrieval.embeddings import MiniLMEmbeddings
+from retrieval.embeddings import MiniLMEmbeddings, get_embeddings
 from retrieval.index import LocalEmbeddingIndex
 from retrieval.llm import build_llm
 from retrieval.qa import answer_question
@@ -93,11 +94,34 @@ def _run_ragas(settings: Settings, answers: list[dict[str, Any]]) -> dict[str, A
             dataset,
             metrics=[answer_relevancy, context_precision, context_recall, faithfulness],
             llm=build_llm(settings=settings, temperature=0.0),
-            embeddings=MiniLMEmbeddings(settings.embedding_model),
+            embeddings=get_embeddings(settings),
         )
         return dict(result)
     except Exception as exc:  # pragma: no cover
         return {"error": f"Ragas evaluation failed: {exc}"}
+
+
+from concurrent.futures import ThreadPoolExecutor
+
+
+def _evaluate_single_item(args: tuple[dict[str, Any], Settings, LocalEmbeddingIndex]) -> dict[str, Any]:
+    item, settings, index = args
+    result = answer_question(item["question"], settings=settings, index=index)
+    judge = _judge_answer(settings, item["question"], item["ground_truth"], result.answer)
+    retrieval_hit = any(doc_id in item["ground_truth_doc_ids"] for doc_id in result.retrieved_doc_ids)
+    return {
+        "id": item["id"],
+        "question_type": item["question_type"],
+        "question": item["question"],
+        "ground_truth": item["ground_truth"],
+        "ground_truth_doc_ids": item["ground_truth_doc_ids"],
+        "answer": result.answer,
+        "retrieved_doc_ids": result.retrieved_doc_ids,
+        "retrieved_contexts": result.retrieved_contexts,
+        "retrieval_hit": retrieval_hit,
+        "token_f1": _token_f1(item["ground_truth"], result.answer),
+        "judge": judge.model_dump(),
+    }
 
 
 def evaluate_pipeline(
@@ -108,27 +132,10 @@ def evaluate_pipeline(
     answers_output_path,
 ) -> EvaluationBundle:
     test_set = read_json(test_set_path)
-    answers: list[dict[str, Any]] = []
+    tasks = [(item, settings, index) for item in test_set]
 
-    for item in test_set:
-        result = answer_question(item["question"], settings=settings, index=index)
-        judge = _judge_answer(settings, item["question"], item["ground_truth"], result.answer)
-        retrieval_hit = any(doc_id in item["ground_truth_doc_ids"] for doc_id in result.retrieved_doc_ids)
-        answers.append(
-            {
-                "id": item["id"],
-                "question_type": item["question_type"],
-                "question": item["question"],
-                "ground_truth": item["ground_truth"],
-                "ground_truth_doc_ids": item["ground_truth_doc_ids"],
-                "answer": result.answer,
-                "retrieved_doc_ids": result.retrieved_doc_ids,
-                "retrieved_contexts": result.retrieved_contexts,
-                "retrieval_hit": retrieval_hit,
-                "token_f1": _token_f1(item["ground_truth"], result.answer),
-                "judge": judge.model_dump(),
-            }
-        )
+    with ThreadPoolExecutor(max_workers=min(len(tasks), 14)) as executor:
+        answers = list(executor.map(_evaluate_single_item, tasks))
 
     summary = {
         "samples": len(answers),
