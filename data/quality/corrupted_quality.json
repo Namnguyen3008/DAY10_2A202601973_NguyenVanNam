@@ -1,0 +1,35 @@
+{
+  "report_name": "corrupted",
+  "total_rows": 23,
+  "passed_all": false,
+  "checks": {
+    "non_empty_dataset": {
+      "status": "PASS",
+      "detail": "Total rows = 23"
+    },
+    "paper_id_not_null": {
+      "status": "PASS",
+      "detail": "Null paper_id count = 0"
+    },
+    "paper_id_unique": {
+      "status": "FAIL",
+      "detail": "Duplicate paper_id count = 3"
+    },
+    "title_not_null": {
+      "status": "PASS",
+      "detail": "Null title count = 0"
+    },
+    "summary_not_blank": {
+      "status": "FAIL",
+      "detail": "Blank summary count = 6"
+    },
+    "summary_min_length": {
+      "status": "FAIL",
+      "detail": "Short summary count (<20 chars) = 6"
+    },
+    "freshness_threshold": {
+      "status": "WARN",
+      "detail": "Stale rows (> 180 days) = 4"
+    }
+  }
+}

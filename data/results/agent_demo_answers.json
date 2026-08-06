@@ -1,0 +1,22 @@
+[
+  {
+    "question": "What is the main finding of 'SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation'?",
+    "answer": "Summary In high-risk industrial settings, leveraging large language models (LLMs) for automated accident analysis and generating safety reports has emerged as an efficient workflow.",
+    "retrieved_titles": [
+      "SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation",
+      "A Survey of (Deep RAG) Deep Retrieval Augmented Generation and Reasoning in Large Language Models",
+      "Retrieval-Augmented Generation (RAG), Generative AI, and Agentic AI Governance: An Integrated Enterprise Governance Prioritization Architecture",
+      "The Role of Retrieval-Augmented Generation in Improving Factual Accuracy for Medical Large Language Models"
+    ]
+  },
+  {
+    "question": "Who authored the paper 'SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation'?",
+    "answer": "Qianwen Cao, Chiyu Zhang, Junxiong Ning, Gongru Li",
+    "retrieved_titles": [
+      "SafeRAG: A Large-Language-Model-Based Multistage Retrieval-Augmented Framework for Oil and Gas Safety Report Generation",
+      "A Survey of (Deep RAG) Deep Retrieval Augmented Generation and Reasoning in Large Language Models",
+      "Retrieval-Augmented Generation (RAG), Generative AI, and Agentic AI Governance: An Integrated Enterprise Governance Prioritization Architecture",
+      "The Role of Retrieval-Augmented Generation in Improving Factual Accuracy for Medical Large Language Models"
+    ]
+  }
+]

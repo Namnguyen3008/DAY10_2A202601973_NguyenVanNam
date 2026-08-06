@@ -1,0 +1,68 @@
+{
+  "initial_record_count": 24,
+  "final_record_count": 23,
+  "corruption_actions": [
+    {
+      "type": "drop_latest_records",
+      "count": 4,
+      "affected_paper_ids": [
+        "10.2118/234689-pa",
+        "10.1007/s10278-026-02086-9",
+        "10.21203/rs.3.rs-10178277/v1",
+        "10.2196/preprints.106157"
+      ],
+      "description": "Dropped 4 most recent records from the dataset."
+    },
+    {
+      "type": "blank_summary",
+      "count": 3,
+      "affected_paper_ids": [
+        "10.3390/buildings16132637",
+        "10.21079/11681/50309",
+        "10.63646/kpqm1958"
+      ],
+      "description": "Blanked summary string for 3 records."
+    },
+    {
+      "type": "inject_noise",
+      "count": 3,
+      "affected_paper_ids": [
+        "10.1111/exsy.70341",
+        "10.47576/2949-1894.2026.7.7.023",
+        "10.21203/rs.3.rs-10012178/v1"
+      ],
+      "description": "Injected text noise into summary for 3 records."
+    },
+    {
+      "type": "truncate_title",
+      "count": 3,
+      "affected_paper_ids": [
+        "10.21203/rs.3.rs-9882260/v1",
+        "10.52060/juptik.v4i1.4318",
+        "10.54254/2753-8818/2026.dl34055"
+      ],
+      "description": "Truncated title to 8 characters for 3 records."
+    },
+    {
+      "type": "stale_published_date",
+      "count": 4,
+      "affected_paper_ids": [
+        "10.22214/ijraset.2026.82233",
+        "10.21203/rs.3.rs-9770645/v1",
+        "10.1093/sleep/zsag091.0346",
+        "10.55041/isjem07213"
+      ],
+      "description": "Set published date to 2014-01-01 (4500 age_days) for 4 records."
+    },
+    {
+      "type": "duplicate_rows",
+      "count": 3,
+      "affected_paper_ids": [
+        "10.3390/buildings16132637",
+        "10.21079/11681/50309",
+        "10.63646/kpqm1958"
+      ],
+      "description": "Appended 3 duplicate rows into the dataset."
+    }
+  ]
+}

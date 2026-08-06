@@ -1,0 +1,35 @@
+{
+  "report_name": "repaired",
+  "total_rows": 24,
+  "passed_all": true,
+  "checks": {
+    "non_empty_dataset": {
+      "status": "PASS",
+      "detail": "Total rows = 24"
+    },
+    "paper_id_not_null": {
+      "status": "PASS",
+      "detail": "Null paper_id count = 0"
+    },
+    "paper_id_unique": {
+      "status": "PASS",
+      "detail": "Duplicate paper_id count = 0"
+    },
+    "title_not_null": {
+      "status": "PASS",
+      "detail": "Null title count = 0"
+    },
+    "summary_not_blank": {
+      "status": "PASS",
+      "detail": "Blank summary count = 0"
+    },
+    "summary_min_length": {
+      "status": "PASS",
+      "detail": "Short summary count (<20 chars) = 0"
+    },
+    "freshness_threshold": {
+      "status": "PASS",
+      "detail": "Stale rows (> 180 days) = 0"
+    }
+  }
+}
